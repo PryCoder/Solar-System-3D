@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Solar System 3D</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+    
+</head>
+<body>
+  <div id="ui"><h3>Solar System Controls</h3><div id="controls"></div>
+    <div class="button-group">
+      <button id="pauseBtn" class="btn">Pause</button><button id="themeToggle" class="btn">Theme</button>
+    </div>
+  </div>
+  <div id="toggleUiBtn" class="btn" style="position: absolute; top: 20px; right: 20px; width: auto; padding: 10px 15px;"> Control Panel</div>
+  <div id="tooltip" class="tooltip"></div><div id="loading">Loading...</div>
+  <canvas id="webgl"></canvas>
+
+  <!-- Corrected script imports -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/TextureLoader.js"></script>
+ <script src="index.js"></script>
+  
+</body>
+</html>

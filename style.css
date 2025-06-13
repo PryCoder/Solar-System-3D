@@ -1,0 +1,121 @@
+body { margin: 0; overflow: hidden; background: #000; color: #fff; font-family: 'Orbitron', sans-serif; transition: all 0.5s; }
+body.light-theme { background: #f0f0f0; color: #333; }
+canvas { display: block; width: 100vw; height: 100vh; }
+#ui { 
+  position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.2); 
+  backdrop-filter: blur(10px); padding: 20px; border-radius: 16px; z-index: 10; box-shadow: 0 0 20px rgba(0,255,255,0.1); 
+  width: calc(100% - 40px); /* Adjust width to fit screen with padding */
+  max-width: 350px; /* Set a maximum width for desktop screens */
+  transition: all 0.5s; 
+  opacity: 0; /* Initially hide the UI panel */
+  visibility: hidden; /* Initially hide the UI panel */
+  transform: translateX(-100%); /* Start off-screen */
+}
+
+#ui.show-ui {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0); /* Slide in */
+}
+
+.light-theme #ui { background: rgba(255,255,255,0.7); border-color: rgba(0,0,0,0.2); color: #333; }
+#ui h3 { margin-bottom: 15px; font-size: 18px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 8px; 
+         text-align: center; letter-spacing: 1px; }
+.light-theme #ui h3 { border-bottom-color: rgba(0,0,0,0.2); }
+label { display: block; margin: 10px 0 5px; font-size: 14px; user-select: none; }
+input[type="range"] { width: 100%; accent-color: cyan; cursor: pointer; transition: all 0.2s; }
+.light-theme input[type="range"] { accent-color: #0066cc; }
+.btn { margin-top: 10px; padding: 4px 6px; background: rgba(255,255,255,0.1); color: cyan; border: 1px solid cyan; 
+       border-radius: 10px; cursor: pointer; font-weight: bold; transition: all 0.2s; font-family: 'Orbitron'; box-sizing: border-box; font-size: 9px; /* Adjusted font size for desktop */ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: normal; }
+.light-theme .btn { color: #0066cc; border-color: #0066cc; }
+.btn:hover { background: cyan; color: #000; transform: scale(1.02); box-shadow: 0 0 10px cyan; }
+.light-theme .btn:hover { background: #0066cc; color: #fff; box-shadow: 0 0 10px #0066cc; }
+#themeToggle { margin-top: 15px; }
+.planet-label, .tooltip { position: absolute; background: rgba(0,0,0,0.7); color: #fff; padding: 5px 10px; border-radius: 5px; 
+                          pointer-events: none; opacity: 0; transition: opacity 0.3s; border: 1px solid rgba(255,255,255,0.2); }
+.planet-label { font-size: 8px; transform: translate(-50%, -50%); white-space: nowrap; }
+.tooltip { font-size: 14px; max-width: 200px; z-index: 100; border-color: rgba(255,255,255,0.3); }
+.light-theme .planet-label, .light-theme .tooltip { background: rgba(255,255,255,0.7); color: #333; border-color: rgba(0,0,0,0.2); }
+#loading { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px; text-align: center; transition: opacity 0.3s; }
+
+/* Responsive adjustments for UI panel */
+@media (max-width: 768px) {
+  #ui {
+    left: 50%; /* Center UI on smaller screens */
+    transform: translateX(-50%); /* Center UI on smaller screens */
+    width: calc(100% - 40px); /* Ensure responsive width */
+    max-width: 300px; /* A reasonable max-width for tablets */
+    padding: 15px; /* Slightly reduced padding for smaller screens */
+  }
+  #ui.show-ui {
+    transform: translateX(-50%); /* Ensure it's centered when shown on smaller screens */
+  }
+
+  #toggleUiBtn {
+    top: 10px;
+    right: 10px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 480px) {
+  #ui {
+    top: 5%; 
+    width: calc(100% - 10px); /* Adjust width to fit screen with padding */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px; /* Even smaller padding for very small screens */
+  }
+  #ui h3 {
+    font-size: 14px; 
+  }
+  label {
+    font-size: 10px; 
+  }
+  input[type="range"] {
+    height: 10px; 
+  }
+  .btn {
+    padding: 0; /* Removed padding to maximize space */
+    font-size: 6px; /* Even further reduced font size for very small screens */
+    white-space: normal; /* Allow text to wrap */
+    letter-spacing: normal; /* Ensure normal letter spacing */
+  }
+  .button-group {
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 5px; /* Reduced gap for stacked buttons */
+  }
+  .button-group .btn {
+    width: 100%; /* Make stacked buttons take full width */
+    min-width: 0; /* Allow buttons to shrink further */
+  }
+  .tooltip {
+    max-width: 100px; 
+    font-size: 9px; 
+  }
+  .planet-label {
+    font-size: 5px; 
+  }
+  #toggleUiBtn {
+    top: 5px;
+    right: 5px;
+    padding: 6px 10px;
+    font-size: 10px;
+  }
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between; /* Distribute space between buttons */
+  gap: 10px; /* Space between buttons */
+  margin-top: 10px; /* Adjust as needed */
+  flex-wrap: wrap; /* Allow buttons to wrap onto the next line if needed */
+}
+
+.button-group .btn {
+  width: calc(50% - 5px); /* Set explicit width to account for gap */
+  flex-grow: 0; /* Prevent buttons from growing beyond calculated width */
+  flex-shrink: 1; /* Allow buttons to shrink if necessary */
+  min-width: 0; /* Allow content to go below its minimum content width */
+  margin-top: 0; /* Reset margin as it's now handled by gap */
+}
